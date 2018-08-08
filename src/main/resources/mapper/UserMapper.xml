@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onefun.dao.UserMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.onefun.entity.User">
+		<id column="id" property="id" />
+		<result column="openid" property="openid" />
+		<result column="nickname" property="nickname" />
+		<result column="avatarurl" property="avatarurl" />
+		<result column="gender" property="gender" />
+		<result column="city" property="city" />
+		<result column="province" property="province" />
+		<result column="country" property="country" />
+		<result column="money" property="money" />
+		<result column="redpacket_count" property="redpacketCount" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, openid, nickname, avatarurl, gender, city, province, country, money, redpacket_count AS redpacketCount
+    </sql>
+
+	<select id="selectPageWithParam" resultType="com.onefun.entity.User" parameterType="com.onefun.entity.User">
+		select
+        <include refid="Base_Column_List"/>
+		from t_user
+	</select>
+
+	<select id="selectOneByObj" resultType="com.onefun.entity.User" parameterType="java.lang.Integer">
+		select
+        <include refid="Base_Column_List"/>
+		from t_user
+		<where>
+			id = #{id, jdbcType=INTEGER}
+		</where>
+	</select>
+</mapper>

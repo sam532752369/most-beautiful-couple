@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onefun.dao.PhotoMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.onefun.entity.Photo">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="url" property="url" />
+		<result column="username" property="username" />
+		<result column="phone" property="phone" />
+		<result column="introduction" property="introduction" />
+		<result column="votes_count" property="votesCount" />
+		<result column="add_time" property="addTime" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id AS userId, url, username, phone, introduction, votes_count AS votesCount, add_time AS addTime
+    </sql>
+
+	<select id="selectPageWithParam" resultType="com.onefun.entity.Photo" parameterType="com.onefun.entity.Photo">
+		select
+        <include refid="Base_Column_List"/>
+		from t_photo
+	</select>
+
+	<select id="selectOneByObj" resultType="com.onefun.entity.Photo" parameterType="java.lang.Integer">
+		select
+        <include refid="Base_Column_List"/>
+		from t_photo
+		<where>
+			id = #{id, jdbcType=INTEGER}
+		</where>
+	</select>
+</mapper>
